@@ -1,0 +1,34 @@
+services:
+  postgres:
+    image: postgres:16.13-alpine
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: estudiante
+      POSTGRES_PASSWORD: estudiante
+      POSTGRES_DB: dwsc
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - app-network
+
+  wildfly:
+    image: quay.io/wildfly/wildfly:26.1.3.Final-jdk11
+    container_name: wildfly_app
+    ports:
+      - "8080:8080"
+      - "9990:9990"
+    volumes:
+      - ./target/actividad3.war:/opt/jboss/wildfly/standalone/deployments/actividad3.war
+    depends_on:
+      - postgres
+    networks:
+      - app-network
+
+networks:
+  app-network:
+
+volumes:
+  postgres_data:

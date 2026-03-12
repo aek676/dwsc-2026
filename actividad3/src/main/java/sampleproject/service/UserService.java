@@ -1,4 +1,4 @@
-package sampleproject.domain;
+package sampleproject.service;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -6,6 +6,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 import java.sql.*;
+import sampleproject.domain.User;
+import sampleproject.domain.Users;
 
 @Path("/users")
 public class UserService {
@@ -50,7 +52,7 @@ public class UserService {
     Connection conn = null;
     try {
       Class.forName("org.postgresql.Driver");
-      String url = "jdbc:postgresql://localhost:5432/dwsc";
+      String url = "jdbc:postgresql://postgres:5432/dwsc";
       conn = DriverManager.getConnection(url, "estudiante", "estudiante");
     } catch (ClassNotFoundException e) {
       e.printStackTrace();
