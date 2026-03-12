@@ -9,6 +9,8 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.*;
+import java.util.Collections;
+import java.util.Comparator;
 import sampleproject.domain.User;
 import sampleproject.domain.Users;
 
@@ -162,6 +164,10 @@ public class UserService {
         user.setAge(rs.getInt("age"));
         users.add(user);
       }
+
+      // Order by username
+      Collections.sort(users, Comparator.comparing(User::getUsername));
+
       rs.close();
       st.close();
       conn.close();
