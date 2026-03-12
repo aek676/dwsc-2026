@@ -2,7 +2,7 @@ CREATE TABLE sampleusers
 (
 username text NOT NULL,
 password text NOT NULL,
-dni text NOT NULL,
+dni text NOT NULL UNIQUE,
 name text NOT NULL,
 surnames text NOT NULL,
 age integer NOT NULL,
