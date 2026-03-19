@@ -1,7 +1,9 @@
 package es.dwsc.sampleprojectmicro.service;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import org.springframework.stereotype.Service;
@@ -30,9 +32,29 @@ public class UserServiceImpl implements UserService {
         user.setAge(rs.getInt("age"));
         users.add(user);
       }
+
+      rs.close();
+      st.close();
     } catch (Exception e) {
-      // TODO: handle exception
+      System.err.println("[UserService - getUsersFromDB] SQLException while querying the users");
+      System.err.println(e.getMessage());
     }
+
+    return users;
   }
 
+  private Connection connect2DB() {
+    Connection conn = null;
+    try {
+      Class.forName("org.postgresql.Driver");
+      String url = "jdbc:postgresql://localhost:5432/dwsc";
+      conn = DriverManager.getConnection(url, "estudiante", "estudiante");
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+    return conn;
+  }
 }

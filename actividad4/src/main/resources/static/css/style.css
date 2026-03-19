@@ -1,0 +1,16 @@
+table {
+  font-family: roboto, sans-serif;
+  border-collapse: collapse;
+}
+td,
+th {
+  text-align: left;
+  padding: 8px;
+}
+th {
+  background-color: #617563;
+  text-align: center;
+}
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
