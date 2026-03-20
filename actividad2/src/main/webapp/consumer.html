@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Consumidor de Noticias</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .form-group { margin-bottom: 15px; }
+        input[type="submit"] { padding: 10px 20px; margin: 5px; }
+        .btn-get { background-color: #f44336; color: white; }
+        .btn-read { background-color: #2196F3; color: white; }
+        .nav { margin: 20px 0; padding: 10px; background-color: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="producer.html">Productor</a> | 
+        <a href="consumer.html">Consumidor</a>
+    </div>
+
+    <h1><font color="#660000">Consumir Noticias</font></h1>
+    
+    <h2>Obtener Noticia (GET)</h2>
+    <p>Extrae y elimina la primera noticia del buffer (FIFO).</p>
+    <form action="getServlet" method="get">
+        <input type="submit" value="Extraer Noticia (GET)" class="btn-get">
+    </form>
+    
+    <h2>Leer Noticia (READ)</h2>
+    <p>Lee la primera noticia sin eliminarla del buffer.</p>
+    <form action="readServlet" method="get">
+        <input type="submit" value="Leer Noticia (READ)" class="btn-read">
+    </form>
+</body>
+</html>

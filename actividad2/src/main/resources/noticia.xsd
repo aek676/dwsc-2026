@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="noticia">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="fecha" type="xs:string"/>
+                <xs:element name="nivel" type="xs:string"/>
+                <xs:element name="descripcionCorta" type="xs:string"/>
+                <xs:element name="descripcionLarga" type="xs:string"/>
+                <xs:element name="etiquetas">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="etiqueta" type="xs:string" minOccurs="1" maxOccurs="6"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

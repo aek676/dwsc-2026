@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+                             http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <display-name>News Manager</display-name>
+    
+    <servlet>
+        <servlet-name>PutNewsServlet</servlet-name>
+        <servlet-class>com.university.news.servlet.PutNewsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PutNewsServlet</servlet-name>
+        <url-pattern>/putServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>GetNewsServlet</servlet-name>
+        <servlet-class>com.university.news.servlet.GetNewsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetNewsServlet</servlet-name>
+        <url-pattern>/getServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ReadNewsServlet</servlet-name>
+        <servlet-class>com.university.news.servlet.ReadNewsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReadNewsServlet</servlet-name>
+        <url-pattern>/readServlet</url-pattern>
+    </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>producer.html</welcome-file>
+    </welcome-file-list>
+
+</web-app>

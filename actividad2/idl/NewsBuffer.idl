@@ -1,0 +1,10 @@
+module NewsBufferApp {
+    interface NewsBuffer {
+        boolean put(in string noticiaXML);
+        boolean get(out string noticiaXML);
+        boolean read(out string noticiaXML);
+        boolean isEmpty();
+        long getCount();
+        oneway void shutdown();
+    };
+};

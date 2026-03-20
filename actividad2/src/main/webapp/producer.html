@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Productor de Noticias</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .form-group { margin-bottom: 15px; }
+        label { display: inline-block; width: 150px; font-weight: bold; }
+        input, select, textarea { padding: 5px; width: 300px; }
+        input[type="submit"] { width: auto; background-color: #4CAF50; color: white; padding: 10px 20px; }
+        .nav { margin: 20px 0; padding: 10px; background-color: #f0f0f0; }
+        .help { font-size: 0.9em; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="nav">
+        <a href="producer.html">Productor</a> | 
+        <a href="consumer.html">Consumidor</a>
+    </div>
+
+    <h1><font color="#660000">Registrar Nueva Noticia</font></h1>
+    
+    <form action="putServlet" method="post">
+        <div class="form-group">
+            <label for="fecha">Fecha:</label>
+            <input type="text" name="fecha" id="fecha" placeholder="dd/mm/aaaa" required>
+            <span class="help">(formato: dd/mm/aaaa)</span>
+        </div>
+        
+        <div class="form-group">
+            <label for="nivel">Nivel de interes:</label>
+            <select name="nivel" id="nivel" required>
+                <option value="">-- Seleccionar --</option>
+                <option value="alta">Alta</option>
+                <option value="media">Media</option>
+                <option value="baja">Baja</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="descripcionCorta">Descripcion corta:</label>
+            <input type="text" name="descripcionCorta" id="descripcionCorta" maxlength="50" required>
+            <span class="help">(5-30 caracteres sin espacios)</span>
+        </div>
+        
+        <div class="form-group">
+            <label for="descripcionLarga">Descripcion larga:</label>
+            <textarea name="descripcionLarga" id="descripcionLarga" rows="4" required></textarea>
+            <span class="help">(20-250 caracteres sin espacios)</span>
+        </div>
+        
+        <div class="form-group">
+            <label for="etiquetas">Etiquetas:</label>
+            <input type="text" name="etiquetas" id="etiquetas" placeholder="#musica #festivalAlmeria">
+            <span class="help">(1-6 hashtags separados por espacios)</span>
+        </div>
+        
+        <div class="form-group">
+            <input type="submit" value="Insertar Noticia">
+            <input type="reset" value="Limpiar">
+        </div>
+    </form>
+</body>
+</html>
