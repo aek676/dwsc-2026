@@ -31,3 +31,5 @@ logs/
 
 # ORB
 orb.db/
+
+NewsBufferApp/*
