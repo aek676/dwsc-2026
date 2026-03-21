@@ -34,6 +34,15 @@
         <url-pattern>/readServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>SetLimitServlet</servlet-name>
+        <servlet-class>com.university.news.servlet.SetLimitServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SetLimitServlet</servlet-name>
+        <url-pattern>/setLimitServlet</url-pattern>
+    </servlet-mapping>
+
     <welcome-file-list>
         <welcome-file>producer.html</welcome-file>
     </welcome-file-list>

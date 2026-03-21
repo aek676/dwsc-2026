@@ -5,6 +5,8 @@ module NewsBufferApp {
         boolean read(out string noticiaXML);
         boolean isEmpty();
         long getCount();
+        long getLimit();
+        void fijarLimiteNoticias(in long numero_maximo);
         oneway void shutdown();
     };
 };

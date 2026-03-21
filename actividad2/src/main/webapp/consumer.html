@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="ISO-8859-1">
     <title>Consumidor de Noticias</title>
@@ -30,6 +30,13 @@
     <p>Lee la primera noticia sin eliminarla del buffer.</p>
     <form action="readServlet" method="get">
         <input type="submit" value="Leer Noticia (READ)" class="btn-read">
+    </form>
+
+    <h2>Configurar Limite del Buffer</h2>
+    <p>Establece el numero maximo de noticias permitidas. Si el nuevo limite es menor que las noticias actuales, se eliminan las ultimas.</p>
+    <form action="setLimitServlet" method="get">
+        <input type="number" name="numero_maximo" min="1" placeholder="Ej: 12" required>
+        <input type="submit" value="Fijar Limite">
     </form>
 </body>
 </html>
