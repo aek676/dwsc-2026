@@ -5,6 +5,7 @@ Sistema de gestión de noticias basado en el modelo Productor/Consumidor utiliza
 ## Descripción
 
 Esta aplicación implementa un buffer de noticias siguiendo el patrón Productor/Consumidor, donde:
+
 - **Productores** insertan noticias en el buffer
 - **Consumidores** leen o extraen noticias del buffer
 - Las noticias se almacenan en formato XML y se validan contra un esquema XSD
@@ -65,13 +66,13 @@ news-manager/
 
 Cada noticia contiene los siguientes campos:
 
-| Campo | Tipo | Validación |
-|-------|------|------------|
-| fecha | String | Formato `dd/mm/aaaa` |
-| nivel | String | "alta", "media" o "baja" |
-| descripcionCorta | String | 5-30 caracteres (sin espacios) |
-| descripcionLarga | String | 20-250 caracteres (sin espacios) |
-| etiquetas | List<String> | 1-6 hashtags (#palabra) |
+| Campo            | Tipo         | Validación                       |
+| ---------------- | ------------ | -------------------------------- |
+| fecha            | String       | Formato `dd/mm/aaaa`             |
+| nivel            | String       | "alta", "media" o "baja"         |
+| descripcionCorta | String       | 5-30 caracteres (sin espacios)   |
+| descripcionLarga | String       | 20-250 caracteres (sin espacios) |
+| etiquetas        | List<String> | 1-6 hashtags (#palabra)          |
 
 ## Compilación
 
@@ -133,6 +134,7 @@ java -cp 'target/classes:$JAVA_HOME/jre/lib/*' com.university.news.corba.NewsBuf
 ```
 
 Deberías ver:
+
 ```
 Servidor NewsBuffer preparado y esperando...
 Buffer configurado con maximo de 20 noticias.
@@ -151,8 +153,9 @@ mvn tomcat7:run
 ### Acceder a la aplicación
 
 Abrir en el navegador:
-- **Productor:** http://localhost:8080/news-manager/producer.html
-- **Consumidor:** http://localhost:8080/news-manager/consumer.html
+
+- **Productor:** <http://localhost:8080/news-manager/producer.html>
+- **Consumidor:** <http://localhost:8080/news-manager/consumer.html>
 
 ## Uso
 
@@ -163,13 +166,14 @@ Abrir en el navegador:
 3. Hacer clic en "Insertar Noticia"
 
 **Datos de prueba:**
-| Campo | Valor |
-|-------|-------|
-| Fecha | 20/03/2026 |
-| Nivel | alta |
-| Desc. Corta | FestivalMusicaAlmeria |
+
+| Campo       | Valor                                                      |
+| ----------- | ---------------------------------------------------------- |
+| Fecha       | 20/03/2026                                                 |
+| Nivel       | alta                                                       |
+| Desc. Corta | FestivalMusicaAlmeria                                      |
 | Desc. Larga | Festival de musica en Almeria con artistas internacionales |
-| Etiquetas | #musica #festivalAlmeria #ocio |
+| Etiquetas   | #musica #festivalAlmeria #ocio                             |
 
 ### Consumir noticia (Consumidor)
 
@@ -188,8 +192,10 @@ mvn test
 ## Problemas Comunes
 
 ### Error: ClassNotFoundException: org.omg.CORBA.ORB
+
 - **Causa:** Maven/Tomcat está usando Java 11+ (que no incluye CORBA)
 - **Solución:** Configurar `JAVA_HOME` y `PATH` antes de ejecutar Maven:
+
   ```bash
   export JAVA_HOME=/usr/lib/jvm/bellsoft-java8-amd64
   export PATH=$JAVA_HOME/bin:$PATH
@@ -197,10 +203,12 @@ mvn test
   ```
 
 ### Error: Could not find or load main class
+
 - **Causa:** Nombre de clase o classpath incorrecto
 - **Solución:** Verificar que la clase es `com.university.news.corba.NewsBufferServer` y el classpath incluye `$JAVA_HOME/jre/lib/*`
 
 ### Error: Connection refused
+
 - **Causa:** ORB Daemon no está ejecutándose
 - **Solución:** Ejecutar `orbd -ORBInitialPort 1050` antes que el servidor
 
@@ -223,14 +231,14 @@ module NewsBufferApp {
 
 ### Métodos
 
-| Método | Descripción |
-|--------|-------------|
-| `put()` | Inserta una noticia XML en el buffer |
-| `get()` | Extrae y elimina la primera noticia (FIFO) |
-| `read()` | Lee la primera noticia sin eliminarla |
-| `isEmpty()` | Verifica si el buffer está vacío |
+| Método       | Descripción                                |
+| ------------ | ------------------------------------------ |
+| `put()`      | Inserta una noticia XML en el buffer       |
+| `get()`      | Extrae y elimina la primera noticia (FIFO) |
+| `read()`     | Lee la primera noticia sin eliminarla      |
+| `isEmpty()`  | Verifica si el buffer está vacío           |
 | `getCount()` | Retorna el número de noticias en el buffer |
-| `shutdown()` | Cierra el servidor CORBA |
+| `shutdown()` | Cierra el servidor CORBA                   |
 
 ## Tecnologías Utilizadas
 
