@@ -43,4 +43,16 @@ public class UserController {
       return ResponseEntity.notFound().build();
     }
   }
+
+  @GetMapping("/usertable/{username}")
+  public String getUserHtml(@PathVariable String username, Map<String, User> model) {
+    User user = userService.getUserFromDB(username);
+
+    if (user != null) {
+      model.put("user", user);
+      return "userview";
+    }
+
+    return "error";
+  }
 }

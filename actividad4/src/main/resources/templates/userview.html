@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>User Profile</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.8/dist/pulse/bootstrap.min.css"
+      integrity="sha256-o//3hBDveRLQUla4SY0ZWD9uGrNz8nJZc8cuqV7K81g="
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container py-5">
+      <table
+        class="table table-primary table-bordered mx-auto"
+        style="max-width: 600px"
+      >
+        <thead>
+          <tr>
+            <th colspan="2" class="text-center" th:text="${user.username}">
+              Username
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">DNI</th>
+            <td th:text="${user.dni}">...</td>
+          </tr>
+          <tr>
+            <th scope="row">Name</th>
+            <td th:text="${user.name}">...</td>
+          </tr>
+          <tr>
+            <th scope="row">Surnames</th>
+            <td th:text="${user.surnames}">...</td>
+          </tr>
+          <tr>
+            <th scope="row">Age</th>
+            <td th:text="${user.age}">...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
+
