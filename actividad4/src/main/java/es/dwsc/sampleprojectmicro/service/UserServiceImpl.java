@@ -2,6 +2,7 @@ package es.dwsc.sampleprojectmicro.service;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -41,6 +42,36 @@ public class UserServiceImpl implements UserService {
     }
 
     return users;
+  }
+
+  @Override
+  public User getUserFromDB(String username) {
+    User user = null;
+    Connection conn = this.connect2DB();
+
+    try {
+      PreparedStatement pst = conn.prepareStatement("SELECT * FROM sampleusers WHERE username = ?");
+      pst.setString(1, username);
+      ResultSet rs = pst.executeQuery();
+
+      if (rs.next()) {
+        user = new User();
+        user.setUsername(rs.getString("username"));
+        user.setPassword(rs.getString("password"));
+        user.setDni(rs.getString("dni"));
+        user.setName(rs.getString("name"));
+        user.setSurnames(rs.getString("surnames"));
+        user.setAge(rs.getInt("age"));
+      }
+
+      rs.close();
+      pst.close();
+    } catch (Exception e) {
+      System.err.println("[UserService - getUserFromDB] SQLException while querying user: " + username);
+      System.err.println(e.getMessage());
+    }
+
+    return user;
   }
 
   private Connection connect2DB() {
