@@ -74,6 +74,54 @@ public class UserServiceImpl implements UserService {
     return user;
   }
 
+  @Override
+  public boolean insertUser(User user) {
+    Connection conn = this.connect2DB();
+
+    try {
+      PreparedStatement checkUsername = conn.prepareStatement("SELECT * FROM sampleusers WHERE username = ?");
+      checkUsername.setString(1, user.getUsername());
+      ResultSet rsUsername = checkUsername.executeQuery();
+      boolean usernameExists = rsUsername.next();
+      rsUsername.close();
+      checkUsername.close();
+
+      if (usernameExists) {
+        conn.close();
+        return false;
+      }
+
+      PreparedStatement checkDni = conn.prepareStatement("SELECT * FROM sampleusers WHERE dni = ?");
+      checkDni.setString(1, user.getDni());
+      ResultSet rsDni = checkDni.executeQuery();
+      boolean dniExists = rsDni.next();
+      rsDni.close();
+      checkDni.close();
+
+      if (dniExists) {
+        conn.close();
+        return false;
+      }
+
+      PreparedStatement insert = conn.prepareStatement("INSERT INTO sampleusers (username, password, dni, name, surnames, age) VALUES (?, ?, ?, ?, ?, ?)");
+      insert.setString(1, user.getUsername());
+      insert.setString(2, user.getPassword());
+      insert.setString(3, user.getDni());
+      insert.setString(4, user.getName());
+      insert.setString(5, user.getSurnames());
+      insert.setInt(6, user.getAge());
+      insert.executeUpdate();
+      insert.close();
+      conn.close();
+
+      return true;
+    } catch (Exception e) {
+      System.err.println("[UserService - insertUser] Error inserting user: " + user.getUsername());
+      System.err.println(e.getMessage());
+      return false;
+    }
+  }
+
   private Connection connect2DB() {
     Connection conn = null;
     try {

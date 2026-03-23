@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS sampleusers (
     username VARCHAR(50) PRIMARY KEY,
     password VARCHAR(100) NOT NULL,
-    dni VARCHAR(20) NOT NULL,
+    dni VARCHAR(20) NOT NULL UNIQUE,
     name VARCHAR(100) NOT NULL,
     surnames VARCHAR(200) NOT NULL,
     age INT NOT NULL

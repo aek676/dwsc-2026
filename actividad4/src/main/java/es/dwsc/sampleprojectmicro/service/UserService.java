@@ -6,4 +6,5 @@ import es.dwsc.sampleprojectmicro.domain.Users;
 public interface UserService {
   public Users getUsersFromDB();
   public User getUserFromDB(String username);
+  public boolean insertUser(User user);
 }
