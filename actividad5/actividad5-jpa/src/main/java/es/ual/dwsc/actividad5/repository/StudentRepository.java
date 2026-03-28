@@ -6,4 +6,7 @@ import es.ual.dwsc.actividad5.domain.Student;
 
 public interface StudentRepository extends CrudRepository<Student, Long> {
 
+  Student findByName(String name);
+
+  Student findByDni(String dni);
 }
