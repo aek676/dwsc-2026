@@ -2,6 +2,7 @@ package es.ual.dwsc.actividad5.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -42,6 +43,16 @@ public class DegreeController {
     existing.setName(degree.getName());
     existing.setProgramme(degree.getProgramme());
     return ResponseEntity.ok(degreeRepo.save(existing));
+  }
+
+  @DeleteMapping("/{code}")
+  public ResponseEntity<Void> deleteDegree(@PathVariable String code) {
+    Degree degree = degreeRepo.findByCode(code);
+    if (degree == null) {
+      return ResponseEntity.notFound().build();
+    }
+    degreeRepo.delete(degree);
+    return ResponseEntity.noContent().build();
   }
 
 }
