@@ -5,4 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 import es.ual.dwsc.actividad5.domain.Degree;
 
 public interface DegreeRepository extends CrudRepository<Degree, Long> {
+
+  Degree findByCode(String code);
 }
