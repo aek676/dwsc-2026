@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,6 +42,17 @@ public class StudentController {
     }
 
     return ResponseEntity.ok(student);
+  }
+
+  @PutMapping("/{dni}")
+  public ResponseEntity<Student> updateStudent(@PathVariable String dni, @RequestBody Student student) {
+    Student existing = studentRepo.findByDni(dni);
+    if (existing == null) {
+      return ResponseEntity.notFound().build();
+    }
+    existing.setName(student.getName());
+    existing.setSurnames(student.getSurnames());
+    return ResponseEntity.ok(studentRepo.save(existing));
   }
 
 }
