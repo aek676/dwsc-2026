@@ -1,0 +1,28 @@
+services:
+  postgres-users:
+    image: postgres:18.3-alpine3.23
+    environment:
+      POSTGRES_DB: dwsc_users
+      POSTGRES_USER: estudiante
+      POSTGRES_PASSWORD: estudiante
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_users_data:/var/lib/postgresql/data
+      - ./init-users.sql:/docker-entrypoint-initdb.d/init-users.sql
+
+  postgres-students:
+    image: postgres:18.3-alpine3.23
+    environment:
+      POSTGRES_DB: dwsc_students
+      POSTGRES_USER: estudiante
+      POSTGRES_PASSWORD: estudiante
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_students_data:/var/lib/postgresql/data
+      - ./init-students.sql:/docker-entrypoint-initdb.d/init-students.sql
+
+volumes:
+  postgres_users_data:
+  postgres_students_data:

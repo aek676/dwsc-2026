@@ -126,7 +126,7 @@ public class UserServiceImpl implements UserService {
     Connection conn = null;
     try {
       Class.forName("org.postgresql.Driver");
-      String url = "jdbc:postgresql://localhost:5432/dwsc";
+      String url = "jdbc:postgresql://localhost:5432/dwsc_users";
       conn = DriverManager.getConnection(url, "estudiante", "estudiante");
     } catch (ClassNotFoundException e) {
       e.printStackTrace();
