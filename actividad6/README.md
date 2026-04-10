@@ -79,8 +79,8 @@ Iniciar en el siguiente orden:
   - `http://localhost:8888/manager-users/default`
   - `http://localhost:8888/manager-students/default`
 
-- Users API: `http://localhost:8081/api/users`
-- Students API: `http://localhost:8082/api/students`
+- Users API: `http://localhost:8081/users`
+- Students API: `http://localhost:8082/students`
 
 ## Detener los servicios
 
