@@ -32,4 +32,4 @@ logs/
 # ORB
 orb.db/
 
-NewsBufferApp/*
+**/NewsBufferApp/*
