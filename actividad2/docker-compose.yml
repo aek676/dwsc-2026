@@ -1,0 +1,52 @@
+services:
+  orb:
+    build:
+      context: .
+      target: base
+    container_name: news-orb
+    networks:
+      - news-network
+    volumes:
+      - ./scripts/entrypoint-orb.sh:/entrypoint-orb.sh
+    command: /entrypoint-orb.sh
+    healthcheck:
+      test: ["CMD", "sh", "-c", "nc -z localhost 1050"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  server:
+    build:
+      context: .
+      target: base
+    container_name: news-server
+    networks:
+      - news-network
+    volumes:
+      - ./scripts/entrypoint-server.sh:/entrypoint-server.sh
+    environment:
+      - ORB_HOST=orb
+      - ORB_PORT=1050
+    command: /entrypoint-server.sh
+    depends_on:
+      orb:
+        condition: service_healthy
+
+  tomcat:
+    build:
+      context: .
+      target: tomcat
+    container_name: news-tomcat
+    ports:
+      - "8080:8080"
+    networks:
+      - news-network
+    environment:
+      - ORB_HOST=orb
+      - ORB_PORT=1050
+    depends_on:
+      - server
+
+networks:
+  news-network:
+    driver: bridge

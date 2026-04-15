@@ -51,9 +51,11 @@ public class SetLimitServlet extends HttpServlet {
                 return;
             }
 
+            String orbHost = System.getenv("ORB_HOST") != null ? System.getenv("ORB_HOST") : "localhost";
+            String orbPort = System.getenv("ORB_PORT") != null ? System.getenv("ORB_PORT") : "1050";
             java.util.Properties props = new java.util.Properties();
-            props.put("org.omg.CORBA.ORBInitialPort", "1050");
-            props.put("org.omg.CORBA.ORBInitialHost", "localhost");
+            props.put("org.omg.CORBA.ORBInitialPort", orbPort);
+            props.put("org.omg.CORBA.ORBInitialHost", orbHost);
             ORB orb = ORB.init(new String[0], props);
             org.omg.CORBA.Object objRef = orb.resolve_initial_references("NameService");
             NamingContextExt ncRef = NamingContextExtHelper.narrow(objRef);
