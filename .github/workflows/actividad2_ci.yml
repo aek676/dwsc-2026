@@ -1,0 +1,30 @@
+name: Actividad 2 CI
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'actividad2/**'
+  push:
+    branches: [main]
+    paths:
+      - 'actividad2/**'
+
+jobs:
+  build:
+    name: Build & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: "8"
+          distribution: "temurin"
+
+      - name: Build & Test
+        working-directory: ./actividad2
+        run: mvn clean verify

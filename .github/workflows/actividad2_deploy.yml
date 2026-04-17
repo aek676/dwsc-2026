@@ -1,0 +1,89 @@
+name: Actividad 2 Deploy
+
+on:
+  workflow_run:
+    workflows: ["Actividad 2 CI"]
+    types: [completed]
+    branches: [main]
+
+env:
+  IMAGE: ${{ vars.GCP_REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.GCP_REPOSITORY }}/news-manager
+
+jobs:
+  deploy:
+    name: Push Image & Deploy
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    permissions:
+      contents: read
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
+
+      - name: Auth to GCP
+        id: auth
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Artifact Registry
+        run: gcloud auth configure-docker ${{ vars.GCP_REGION }}-docker.pkg.dev --quiet
+
+      - name: Build and Push Backend image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./actividad2
+          target: base
+          push: true
+          tags: |
+            ${{ env.IMAGE }}-backend:${{ github.event.workflow_run.head_sha }}
+            ${{ env.IMAGE }}-backend:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Build and Push Tomcat image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./actividad2
+          target: tomcat
+          push: true
+          tags: |
+            ${{ env.IMAGE }}-tomcat:${{ github.event.workflow_run.head_sha }}
+            ${{ env.IMAGE }}-tomcat:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Copy docker-compose to VM
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          source: ./actividad2/docker-compose.yml
+          target: /opt/news-manager
+          strip_components: 1
+
+      - name: Deploy to VM
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          script: |
+            cd /opt/news-manager
+            export IMAGE_BACKEND=${{ env.IMAGE }}-backend:${{ github.event.workflow_run.head_sha }}
+            export IMAGE_TOMCAT=${{ env.IMAGE }}-tomcat:${{ github.event.workflow_run.head_sha }}
+            docker compose pull
+            docker compose up -d --remove-orphans
+            docker image prune -f
