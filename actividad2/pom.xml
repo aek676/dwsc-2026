@@ -85,7 +85,7 @@
                             <executable>bash</executable>
                             <arguments>
                                 <argument>-c</argument>
-                                <argument>mkdir -p src/main/java/NewsBufferApp && cp -f NewsBufferApp/*.java src/main/java/NewsBufferApp/ 2>/dev/null || true</argument>
+                                <argument>mkdir -p src/main/java/NewsBufferApp &amp;&amp; cp -f NewsBufferApp/*.java src/main/java/NewsBufferApp/ 2>/dev/null || true</argument>
                             </arguments>
                         </configuration>
                     </execution>

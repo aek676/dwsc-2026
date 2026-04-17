@@ -63,7 +63,7 @@ jobs:
           cache-to: type=gha,mode=max
 
       - name: Copy docker-compose to VM
-        uses: appleboy/scp-action@v0.1.7
+        uses: appleboy/scp-action@v1
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
@@ -71,7 +71,7 @@ jobs:
           port: ${{ secrets.SSH_PORT || 22 }}
           source: ./actividad2/docker-compose.yml
           target: /opt/news-manager
-          strip_components: 1
+          strip_components: 2
 
       - name: Deploy to VM
         uses: appleboy/ssh-action@v1
