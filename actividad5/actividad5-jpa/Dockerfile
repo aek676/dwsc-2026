@@ -11,7 +11,9 @@ RUN chmod +x mvnw && ./mvnw clean package -DskipTests
 
 FROM eclipse-temurin:17-jre-noble AS runtime
 
-RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends \ 
+  curl \
+  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
