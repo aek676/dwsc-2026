@@ -1,10 +1,9 @@
-# --- FASE 1: Construcción y Base para ORB/Server ---
 FROM eclipse-temurin:8-jdk AS base
 
-RUN apt-get update && apt-get install -y \
-    maven \
-    netcat-openbsd \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends \
+  maven \
+  netcat-openbsd \
+  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
@@ -12,17 +11,15 @@ COPY pom.xml .
 COPY src ./src
 COPY idl ./idl
 
-RUN idlj -fall -oldImplBase idl/NewsBuffer.idl
-RUN mkdir -p src/main/java/NewsBufferApp
-RUN cp NewsBufferApp/*.java src/main/java/NewsBufferApp/
-
-RUN mvn clean package -DskipTests
+RUN idlj -fall -oldImplBase idl/NewsBuffer.idl && \
+  mkdir -p src/main/java/NewsBufferApp && \
+  cp NewsBufferApp/*.java src/main/java/NewsBufferApp/ && \
+  mvn clean package -DskipTests
 
 EXPOSE 1050
 
 CMD ["tail", "-f", "/dev/null"]
 
-# --- FASE 2: Servidor Tomcat Ligero ---
 FROM tomcat:9-jre8 AS tomcat
 EXPOSE 8080
 
