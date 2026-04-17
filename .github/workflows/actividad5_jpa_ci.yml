@@ -1,0 +1,29 @@
+name: Actividad 5 JPA CI
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "actividad5/actividad5-jpa/**"
+  push:
+    branches: [main]
+    paths:
+      - "actividad5/actividad5-jpa/**"
+
+jobs:
+  build:
+    name: Build & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "temurin"
+
+      - name: Build & Test
+        working-directory: ./actividad5/actividad5-jpa
+        run: mvn clean package -DskipTests
