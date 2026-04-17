@@ -10,6 +10,9 @@ WORKDIR /app
 COPY pom.xml .
 COPY src ./src
 COPY idl ./idl
+COPY scripts ./scripts
+
+RUN chmod +x ./scripts/*.sh
 
 RUN idlj -fall -oldImplBase idl/NewsBuffer.idl && \
   mkdir -p src/main/java/NewsBufferApp && \

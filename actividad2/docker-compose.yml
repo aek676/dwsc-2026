@@ -1,14 +1,13 @@
 services:
   orb:
+    image: ${IMAGE_BACKEND:-news-manager-backend:latest}
     build:
       context: .
       target: base
     container_name: news-orb
     networks:
       - news-network
-    volumes:
-      - ./scripts/entrypoint-orb.sh:/entrypoint-orb.sh
-    command: /entrypoint-orb.sh
+    command: /app/scripts/entrypoint-orb.sh
     healthcheck:
       test: ["CMD", "sh", "-c", "nc -z localhost 1050"]
       interval: 5s
@@ -16,23 +15,23 @@ services:
       retries: 10
 
   server:
+    image: ${IMAGE_BACKEND:-news-manager-backend:latest}
     build:
       context: .
       target: base
     container_name: news-server
     networks:
       - news-network
-    volumes:
-      - ./scripts/entrypoint-server.sh:/entrypoint-server.sh
     environment:
       - ORB_HOST=orb
       - ORB_PORT=1050
-    command: /entrypoint-server.sh
+    command: /app/scripts/entrypoint-server.sh
     depends_on:
       orb:
         condition: service_healthy
 
   tomcat:
+    image: ${IMAGE_TOMCAT:-news-manager-tomcat:latest}
     build:
       context: .
       target: tomcat
