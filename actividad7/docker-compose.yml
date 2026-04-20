@@ -30,3 +30,17 @@ services:
       - TMDB_API_KEY=${TMDB_API_KEY}
     depends_on:
       - eureka-server
+
+  movies-manager:
+    image: eureka.client.movies-manager:0.0.1-SNAPSHOT
+    container_name: movies-manager
+    ports:
+      - "8087:8087"
+    environment:
+      - SERVER_PORT=8087
+      - EUREKA_INSTANCE_HOSTNAME=movies-manager
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+    depends_on:
+      - eureka-server
+      - omdb-service
+      - tmdb-service
