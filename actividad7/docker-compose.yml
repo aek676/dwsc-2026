@@ -1,15 +1,15 @@
 services:
   eureka-server:
-    image: eureka.server:0.0.1-SNAPSHOT
+    image: ghcr.io/aek676/eureka-server:latest
     container_name: eureka-server
     ports:
       - "8761:8761"
 
   omdb-service:
-    image: eureka.client.omdb:0.0.1-SNAPSHOT
+    image: ghcr.io/aek676/omdb-service:latest
     container_name: omdb-service
-    ports:
-      - "8085:8085"
+    # ports:
+    #   - "8085:8085"
     environment:
       - SERVER_PORT=8085
       - EUREKA_INSTANCE_HOSTNAME=omdb-service
@@ -19,10 +19,10 @@ services:
       - eureka-server
 
   tmdb-service:
-    image: eureka.client.tmdb:0.0.1-SNAPSHOT
+    image: ghcr.io/aek676/tmdb-service:latest
     container_name: tmdb-service
-    ports:
-      - "8086:8086"
+    # ports:
+    #   - "8086:8086"
     environment:
       - SERVER_PORT=8086
       - EUREKA_INSTANCE_HOSTNAME=tmdb-service
@@ -32,10 +32,10 @@ services:
       - eureka-server
 
   movies-manager:
-    image: eureka.client.movies-manager:0.0.1-SNAPSHOT
+    image: ghcr.io/aek676/movies-manager:latest
     container_name: movies-manager
-    ports:
-      - "8087:8087"
+    # ports:
+    #   - "8087:8087"
     environment:
       - SERVER_PORT=8087
       - EUREKA_INSTANCE_HOSTNAME=movies-manager
@@ -46,7 +46,7 @@ services:
       - tmdb-service
 
   gateway:
-    image: gateway:0.0.1-SNAPSHOT
+    image: ghcr.io/aek676/gateway:latest
     container_name: gateway
     ports:
       - "8080:8080"
