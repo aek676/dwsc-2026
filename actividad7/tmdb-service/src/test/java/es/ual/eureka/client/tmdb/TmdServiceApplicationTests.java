@@ -1,4 +1,4 @@
-package es.ual.eureka.client.tmd;
+package es.ual.eureka.client.tmdb;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

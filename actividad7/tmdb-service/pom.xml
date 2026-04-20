@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>es.ual</groupId>
-	<artifactId>eureka.client.tmd</artifactId>
+	<artifactId>eureka.client.tmdb</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>tmd-service</name>
 	<description>Demo project for Spring Boot</description>
@@ -42,6 +42,10 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
 		</dependency>
 
 		<dependency>

@@ -1,3 +1,31 @@
 spring:
   application:
-    name: tmd-service
+    name: tmdb-service
+
+tmd:
+  api:
+    key: ${TMDB_API_KEY:}
+    base-url: https://api.themoviedb.org/3
+
+server:
+  port: ${PORT:${SERVER_PORT:0}}
+
+eureka:
+  instance:
+    hostname: localhost
+    instance-id: ${eureka.instance.hostname}:${spring.application.name}:${spring.application.name:${random.value}}
+  client:
+    service-url:
+      defaultZone: http://localhost:8761
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+info:
+  application:
+    name: ${spring.application.name}
+    description: This application check movies on TMDB
+    version: "@project.version@"
