@@ -14,5 +14,6 @@ services:
       - SERVER_PORT=8085
       - EUREKA_INSTANCE_HOSTNAME=omdb-service
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+      - OMDB_API_KEY=${OMDB_API_KEY}
     depends_on:
       - eureka-server

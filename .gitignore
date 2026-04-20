@@ -17,3 +17,6 @@ buildNumber.properties
 .classpath
 .settings
 .factorypath
+
+.env
+!.env.example

@@ -28,3 +28,7 @@ info:
     name: ${spring.application.name}
     description: This application check movies on omdb
     version: "@project.version@"
+
+omdb:
+  api:
+    key: ${OMDB_API_KEY:}
