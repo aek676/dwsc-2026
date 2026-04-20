@@ -1,3 +1,30 @@
 spring:
   application:
     name: omdb-service
+
+server:
+  port: ${PORT:${SERVER_PORT:0}}
+
+eureka:
+  instance:
+    hostname: localhost
+    instance-id: ${eureka.instance.hostname}:${spring.application.name}:${spring.application.name:${random.value}}
+
+  client:
+    service-url:
+      defaultZone: http://localhost:8761
+
+management:
+  info:
+    env:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+info:
+  application:
+    name: ${spring.application.name}
+    description: This application check movies on omdb
+    version: "@project.version@"

@@ -1,0 +1,18 @@
+services:
+  eureka-server:
+    image: eureka.server:0.0.1-SNAPSHOT
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+
+  omdb-service:
+    image: eureka.client.omdb:0.0.1-SNAPSHOT
+    container_name: omdb-service
+    ports:
+      - "8085:8085"
+    environment:
+      - SERVER_PORT=8085
+      - EUREKA_INSTANCE_HOSTNAME=omdb-service
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://eureka-server:8761/eureka/
+    depends_on:
+      - eureka-server
