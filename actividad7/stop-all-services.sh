@@ -2,7 +2,7 @@
 
 echo "=== Buscando y detieneiendo servicios de Spring Boot ==="
 
-pids=$(ps aux | grep -E 'actividad7/eureka' | grep -v grep | awk '{print $2}')
+pids=$(ps aux | grep -E 'actividad7' | grep -v grep | awk '{print $2}')
 
 if [ -z "$pids" ]; then
   echo "No se encontraron servicios en ejecucion"
@@ -16,7 +16,7 @@ kill -15 $pids
 
 sleep 2
 
-pids_left=$(ps aux | grep -E 'actividad7/eureka' | grep -v grep | awk '{print $2}')
+pids_left=$(ps aux | grep -E 'actividad7' | grep -v grep | awk '{print $2}')
 
 if [ -n "$pids_left" ]; then
   echo "Intentando con senal forzada -9..."
@@ -27,7 +27,7 @@ echo "Verificando que todos los servicios estan detenidos..."
 
 sleep 1
 
-remaining=$(ps aux | grep -E 'actividad7/eureka' | grep -v grep | wc -l)
+remaining=$(ps aux | grep -E 'actividad7' | grep -v grep | wc -l)
 
 if [ "$remaining" -eq 0 ]; then
   echo "Todos los servicios han sido detenidos"

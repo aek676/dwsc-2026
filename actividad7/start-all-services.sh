@@ -43,6 +43,11 @@ cd "$BASE_DIR/eureka-client-sentence-feign"
 ./mvnw spring-boot:run &
 echo "Sentence-Feign iniciado (PID: $!)"
 
+cd "$BASE_DIR/gateway"
+./mvnw clean package -DskipTests
+./mvnw spring-boot:run &
+echo "Gateway iniciado (PID: $!)"
+
 echo ""
 echo "=== Todos los servicios iniciados ==="
 echo "Usa 'ps' para ver los procesos"
