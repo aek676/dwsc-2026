@@ -22,3 +22,17 @@ eureka:
     service-url:
       defaultZone: http://localhost:8761
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
+
+info:
+  application:
+    name: ${spring.application.name}
+    description: Spring Cloud Gateway with Eureka
+    version: "@project.version@"
